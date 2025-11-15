@@ -59,8 +59,34 @@ REST_FRAMEWORK = {
 ```
 
 ### Run command below to create the migration
-```code
+```bash
 cd backend
 python manage.py migrate
 
+```
+
+
+## Commands to run project
+```bash
+cd backend
+python manage.py runserver
+```
+
+
+
+## Create project request for the interview
+```bash
+cd backend
+python manage.py startapp prompts
+
+```
+Add the reference
+```code 
+INSTALLED_APPS = [
+    ...
+    "rest_framework",
+    "corsheaders",
+    "users",
+    "prompts",
+]
 ```
