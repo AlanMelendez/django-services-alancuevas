@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  postgres_db:
+    image: postgres:15
+    container_name: postgres_db
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend_app:
+    build: ./backend
+    container_name: backend_app
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    environment:
+      DJANGO_DEBUG: ${DJANGO_DEBUG}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres_db
+
+volumes:
+  postgres_data:
