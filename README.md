@@ -147,3 +147,23 @@ To get prompts similar to a given text, you can send a GET request with a `text`
 ```bash
 curl -X GET "http://localhost:8000/prompts/similar/?text=some text to compare" -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
+
+## How i'd throw this thing on AWS (kinda)
+
+So, you wanna put this bad boy on the cloud? Aite, bet. Here's a rough sketch of how i'd do it. Don't take this as gospel, it's just a plan, not a production-ready blueprint.
+
+*   **The App (Django):** First, i'd containerize the Django app using Docker. That `docker-compose.yml` is a good start. Then I'd yeet that container onto **AWS Fargate**. Fargate is cool 'cause you don't have to manage any servers. You just give it your container and it runs it. Less headache.
+
+*   **The Database (Postgres):** Instead of running Postgres in a container, I'd use **Amazon RDS**. It's a managed database service. They handle all the boring stuff like backups, patching, and all that jazz. We just connect to it like any other database. 
+
+*   **The Websockets (Redis):** Our websockets need a Redis instance to talk to each other. For that, i'd use **Amazon ElastiCache**. It's basically a managed Redis, same deal as RDS. Set it up, get the connection string, and you're golden.
+
+*   **Traffic Cop (Load Balancer):** To get traffic into our app, i'd set up an **Application Load Balancer (ALB)**. It can handle both the normal HTTP requests and the WebSocket connections. It'll also handle SSL termination, so we get that sweet, sweet `https://`.
+
+*   **Putting it all together (CI/CD):** I'd use **GitHub Actions** to automate everything. When we push to the `main` branch, it would:
+    1.  Run the tests (obvs).
+    2.  Build the Docker image.
+    3.  Push the image to **Amazon ECR** (which is just a private Docker registry).
+    4.  Tell Fargate to deploy the new image.
+
+So yeah, that's the gist of it. It's a pretty standard setup and it scales reasonably well.
