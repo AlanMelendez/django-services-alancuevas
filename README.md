@@ -77,6 +77,7 @@ python manage.py runserver
 ## Create project request for the interview
 ```bash
 cd backend
+python manage.py startapp users
 python manage.py startapp prompts
 
 ```
