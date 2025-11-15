@@ -19,3 +19,19 @@ source venv/bin/activate
 cd backend
 pip install -r req.txt
 ```
+
+## Steps to create django-project in backend folder
+```bash
+django-admin startproject django_services_alancuevas .
+
+```
+
+### We need to add the next apps inside of setting.py 
+```code
+INSTALLED_APPS = [
+    ..others,
+    "rest_framework",
+    "corsheaders"
+]
+
+```
