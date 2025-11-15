@@ -33,5 +33,34 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders"
 ]
+MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware"
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+}
+
+
+```
+
+### Run command below to create the migration
+```code
+cd backend
+python manage.py migrate
 
 ```
