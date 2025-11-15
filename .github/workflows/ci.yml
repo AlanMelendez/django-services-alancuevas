@@ -15,7 +15,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.10] # lets test on python 3.10
+        python-version: [3.10] # lets test on python 3.10 see docs if is necessary https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json
 
     steps:
     - name: Check out the code, ya know, download it
