@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "users",
-    "prompts",       
+    "prompts",
+    "channels",
 ]
 
 MIDDLEWARE = [
@@ -77,6 +78,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'django_services_alancuevas.wsgi.application'
+ASGI_APPLICATION = "django_services_alancuevas.asgi.application"
 
 
 # Database docs below , it;s important to use docker support
@@ -155,6 +157,15 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
+}
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
 }
 
 

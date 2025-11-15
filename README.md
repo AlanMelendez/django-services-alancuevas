@@ -1,5 +1,7 @@
 # Django Services interview
 
+**Disclaimer:** The following setup is for a technical test and is not intended for a production environment.
+
 ## Dev requirements to run in linux
 Python 3.10+
 pip
@@ -90,4 +92,58 @@ INSTALLED_APPS = [
     "users",
     "prompts",
 ]
+```
+## How to try all endpoints
+
+### User Authentication
+
+#### Register a new user
+
+To register a new user, you need to send a POST request to the following endpoint:
+
+```bash
+curl -X POST http://localhost:8000/users/register/ -H "Content-Type: application/json" -d '{
+    "username": "your_username",
+    "password": "your_password"
+}'
+```
+
+#### Login
+
+To log in and get an access token, send a POST request with your credentials:
+
+```bash
+curl -X POST http://localhost:8000/users/login/ -H "Content-Type: application/json" -d '{
+    "username": "your_username",
+    "password": "your_password"
+}'
+```
+This will return an access and refresh token.
+
+#### Refresh Token
+To get a new access token, you can use the refresh token:
+```bash
+curl -X POST http://localhost:8000/users/token/refresh/ -H "Content-Type: application/json" -d '{
+    "refresh": "your_refresh_token"
+}'
+```
+
+### Prompts
+
+To interact with the prompts endpoints, you need to be authenticated. Use the access token from the login step in the Authorization header.
+
+#### Create a new prompt
+
+```bash
+curl -X POST http://localhost:8000/prompts/ -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -d '{
+    "text": "This is a new prompt."
+}'
+```
+
+#### Get similar prompts
+
+To get prompts similar to a given text, you can send a GET request with a `text` parameter:
+
+```bash
+curl -X GET "http://localhost:8000/prompts/similar/?text=some text to compare" -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
