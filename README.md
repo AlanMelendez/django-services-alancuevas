@@ -95,6 +95,8 @@ INSTALLED_APPS = [
 ```
 ## How to try all endpoints
 
+For easier testing, you can import the Postman collection located in the `postman_collection/` directory. This allows you to test all endpoints from the Postman app without using `curl`.
+
 ### User Authentication
 
 #### Register a new user

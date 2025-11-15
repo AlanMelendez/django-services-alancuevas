@@ -1,0 +1,146 @@
+{
+	"info": {
+		"_postman_id": "901244d1-14fe-45ce-a3e6-260eabad69da",
+		"name": "django-services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16825678"
+	},
+	"item": [
+		{
+			"name": "login_user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"test\",\n    \"password\": \"test123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/users/login/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register_user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"test\",\n    \"password\": \"test123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/users/register/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_prompt",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMTk0Mzk0LCJpYXQiOjE3NjMxOTQwOTQsImp0aSI6Ijk5OTQ1MDlkMDM2NDQyZGFiNzAxNzE4YjY1NGMyYzJkIiwidXNlcl9pZCI6Mn0.L7cg02RrEL_LgPYeRoTAF7K7pqIuML5kTmz9mQLeEHw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"text\": \"Hi it's a new prompt lol\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/prompts/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"prompts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_prompt Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMTk0Mzk0LCJpYXQiOjE3NjMxOTQwOTQsImp0aSI6Ijk5OTQ1MDlkMDM2NDQyZGFiNzAxNzE4YjY1NGMyYzJkIiwidXNlcl9pZCI6Mn0.L7cg02RrEL_LgPYeRoTAF7K7pqIuML5kTmz9mQLeEHw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/prompts/similar/?text=Hi it's a new prompt lol",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"prompts",
+						"similar",
+						""
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "Hi it's a new prompt lol"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
