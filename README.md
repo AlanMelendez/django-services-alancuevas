@@ -167,3 +167,36 @@ So, you wanna put this bad boy on the cloud? Aite, bet. Here's a rough sketch of
     4.  Tell Fargate to deploy the new image.
 
 So yeah, that's the gist of it. It's a pretty standard setup and it scales reasonably well.
+
+## Running with Docker
+
+If you wanna skip the local python setup, you can run everything with Docker. It's probably easier.
+
+1.  Make sure you have Docker and Docker Compose installed.
+2.  Make sure your `.env` file is ready at the root of the project. You can use the `.env.example` as a template.
+3.  Open a terminal at the project root and run:
+
+    ```bash
+    docker-compose up --build
+    ```
+    The first time it might take a while 'cause it has to download and build everything.
+
+Once it's up, you'll have:
+*   **The API running at:** `http://localhost:8000`
+*   **pgAdmin (to see the database):** `http://localhost:5050`
+
+### How to check the database with pgAdmin
+
+1.  Go to `http://localhost:5050` in your browser.
+2.  Log in using the `PGADMIN_DEFAULT_EMAIL` and `PGADMIN_DEFAULT_PASSWORD` from your `.env` file.
+3.  Click on "Add New Server".
+4.  In the "General" tab, give it a name you'll remember, like "local-django-db".
+5.  Go to the "Connection" tab and fill it out like this:
+    *   **Host name/address:** `postgres_db` (this is the name of the service in the `docker-compose.yml`)
+    *   **Port:** `5432`
+    *   **Maintenance database:** Use the value of `POSTGRES_DB` from your `.env` file.
+    *   **Username:** Use the value of `POSTGRES_USER` from your `.env` file.
+    *   **Password:** Use the value of `POSTGRES_PASSWORD` from your `.env` file.
+6.  Hit "Save".
+
+And that's it! You should now be able to browse your database, see the tables Django made, and whatever data gets saved.
