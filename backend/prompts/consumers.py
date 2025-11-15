@@ -26,9 +26,9 @@ class PromptConsumer(AsyncWebsocketConsumer):
 
     # Receive message from room group
     async def prompt_response(self, event):
-        response = event['response']
+        response_data = event['response']
 
-        # Send message to WebSocket
+        # Send message to WebSocket heree
         await self.send(text_data=json.dumps({
-            'response': response
+            'response': response_data
         }))
