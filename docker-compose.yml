@@ -16,7 +16,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   backend_app:
-    build: ./backend
+    build: ./backend #reference to the Dockerfile inside backend folder
     container_name: backend_app
     command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
@@ -32,6 +32,19 @@ services:
       DB_PORT: ${DB_PORT}
     ports:
       - "8000:8000"
+    depends_on:
+      - postgres_db
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    env_file:
+      - .env
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5050:80"
     depends_on:
       - postgres_db
 

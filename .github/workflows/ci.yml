@@ -1,0 +1,36 @@
+# name of our cool workflow
+name: Django CI
+
+# when this thing should run
+on:
+  push:
+    branches: [ "main", "develop" ] # run it when we push to main or develop
+  pull_request:
+    branches: [ "main", "develop" ] # also when someone makes a PR to those branches
+
+jobs:
+  build:
+    # what machine this runs on, ubuntu is cheap and gud
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.11] # lets test on python 3.10 see docs if is necessary https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json
+
+    steps:
+    - name: Check out the code, ya know, download it
+      uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install Deps
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r backend/req.txt
+        
+    - name: Run the testss
+      run: |
+        python backend/manage.py test
